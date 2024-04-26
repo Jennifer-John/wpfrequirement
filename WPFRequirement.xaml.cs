@@ -1,14 +1,22 @@
-﻿using System.Windows;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace WpfApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WPFRequirement.xaml
     /// </summary>
     public partial class WPFRequirement: Window
     {
-        Queue<string> lst_str = new Queue<string>();
+        Queue<string> queue_input = new Queue<string>();
 
         public WPFRequirement()
         {
@@ -20,7 +28,7 @@ namespace WpfApp
         {
             if (txt_input.Text.Trim().Length > 0)
             {
-                lst_str.Enqueue(txt_input.Text);
+                queue_input.Enqueue(txt_input.Text);
                 string enteredText = txt_input.Text + display_label.Content.ToString();
                 display_label.Content = enteredText;
                 txt_input.Clear();
@@ -35,9 +43,9 @@ namespace WpfApp
 
         private void ProcessButton_Click(object sender, RoutedEventArgs e)
         {
-            if (lst_str.Count > 0)
+            if (queue_input.Count > 0)
             {
-                string bottom_element = lst_str.Peek();
+                string bottom_element = queue_input.Peek();
                 process_label.Content = bottom_element;
                 assign_colour_code(bottom_element);
                 update_display_label();
@@ -46,9 +54,9 @@ namespace WpfApp
 
         private void update_display_label()
         {
-            lst_str.Dequeue();
-            display_label.Content = lst_str.Count;
-            string updated_string = string.Join("", lst_str.Reverse().ToArray());
+            queue_input.Dequeue();
+            display_label.Content = queue_input.Count;
+            string updated_string = string.Join("", queue_input.Reverse().ToArray());
             display_label.Content = updated_string;
         }
 
