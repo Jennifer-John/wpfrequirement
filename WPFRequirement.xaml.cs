@@ -29,7 +29,7 @@ namespace WpfApp
             if (txt_input.Text.Trim().Length > 0)
             {
                 queue_input.Enqueue(txt_input.Text);
-                string enteredText = txt_input.Text + display_label.Content.ToString();
+                string enteredText = string.Join("", queue_input.Reverse().ToArray());
                 display_label.Content = enteredText;
                 txt_input.Clear();
             }
